@@ -34,7 +34,8 @@ public abstract class AbstractRecordCollection {
 
 	/**
 	 * Search method to find the closest record in the collection 
-	 * (In practice, the top record once the collection is sorted) 
+	 * (In practice, the top record once the collection is sorted)
+	 * Equivalent to findClosestRecords(1) - hence requirement #(this)>0
 	 * 
 	 * @return <code>AbstractRecord r</code> such that 
 	 * <code>r.similarity>s.similarity</code> for all <code>Record s</code>
@@ -50,7 +51,7 @@ public abstract class AbstractRecordCollection {
 	 * @return <code><r1,r2,...,rn></code> where <code>r1.similarity > 
 	 * r2.similarity > ... > rn.similarity</code> and <code>rn > s</code> 
 	 * for all other <code>Record s</code>
-	 * @throws IndexException if <code>!isSorted(this) OR n > #(this)</code>
+     * @throws IndexException if <code>!isSorted(this) OR n > #(this)</code>
 	 */
 	public abstract List<Record> findClosestRecords(int n) throws IndexException;
 
