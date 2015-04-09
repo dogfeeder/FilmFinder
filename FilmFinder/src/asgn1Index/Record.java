@@ -3,8 +3,12 @@ package asgn1Index;
 public class Record extends AbstractRecord implements Comparable<Record> {
 	
 	public Record(String title, int similarity) throws IndexException {
-		this.title = title;
-		this.similarity = similarity;
+		if (title.isEmpty() || title == null || similarity < 0) {
+			throw new IndexException("Invalid record");
+		} else {
+			this.title = title;
+			this.similarity = similarity;
+		}
 	}
 
 	@Override

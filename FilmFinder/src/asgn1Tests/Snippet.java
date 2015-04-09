@@ -1,5 +1,13 @@
 package asgn1Tests;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import asgn1Index.IndexException;
+import asgn1Index.Record;
+import asgn1Index.RecordCollection;
+
 //The test for the addRecord call after the ArrayList has been sorted. Please listen to the 
 //podcast for details. 
 //Note that you will have to declare appropriate variables to make this work, but these will 
@@ -15,9 +23,14 @@ public class Snippet {
 	     */
 	    @Test
 	    public void collectionNotSortedAfterSortingThenAdding() throws IndexException {
-	        unsortedRecordCollection.sortCollection();
+	    	Record moon = new Record("moon", 0);
+	    	Record sun = new Record("sun", 0);
+	        RecordCollection unsortedRecordCollection = null; // need to fix this somehow ???? cant be null
+	    	
+	    	unsortedRecordCollection.addRecord(sun);
+			unsortedRecordCollection.sortCollection();
 	        assertTrue(unsortedRecordCollection.isSorted());
-	        unsortedRecordCollection.addRecord(moon);
+			unsortedRecordCollection.addRecord(moon);
 	        assertFalse(unsortedRecordCollection.isSorted());
 	    }
 	

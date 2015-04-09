@@ -14,9 +14,13 @@ public class MovieListing extends java.lang.Object implements Listing {
 	Set<String> keywords = new HashSet<String>();
 	
 	public MovieListing(String title, int year) throws ListingException {
-		this.year = year;
-		this.title = title;
-		// TODO Auto-generated constructor stub
+		if (year > 0 && title != null && !title.isEmpty()) {
+			this.year = year;
+			this.title = title;
+		} else {
+			throw new ListingException(String.format("Invalid title and year: %s, %d", title, year));
+		}
+
 	}
 
 
@@ -48,24 +52,35 @@ public class MovieListing extends java.lang.Object implements Listing {
 
 		@Override
 		public void addKeyword(String kw) throws ListingException {
-			this.keywords.add(kw);
+			if (kw != null && !kw.isEmpty()) {
+				this.keywords.add(kw);
+			} else {
+				throw new ListingException(String.format("Invalid Keyword: %s", kw));
+			}
 		}
 
 
 		@Override
 		public int findSimilarity(Listing l) throws ListingException {
-			// TODO Auto-generated method stub
-			BitSet a = this.getKeyVector();
-			BitSet b = l.getKeyVector();
-			BitSet both = (BitSet)a.clone();
-			both.and(b);
-			return both.cardinality();
+			if (this.getKeyVector() != null && l.getKeyVector() != null) {
+				BitSet a = this.getKeyVector();
+				BitSet b = l.getKeyVector();
+				BitSet both = (BitSet)a.clone();
+				both.and(b);
+				return both.cardinality();
+			} else {
+				throw new ListingException("1 Or more null Vectors");
+			}
 		}
 
 
 		@Override
 		public BitSet getKeyVector() throws ListingException {
-			return keyVector;
+			if (keyVector != null) {
+				return keyVector;
+			} else {
+				throw new ListingException("Bitset Is Null");
+			}
 		}
 
 
@@ -101,7 +116,12 @@ public class MovieListing extends java.lang.Object implements Listing {
 
 		@Override
 		public String writeKeyVector() throws ListingException {
-			return keyVector.toString();
+			if (keyVector != null) {
+				return keyVector.toString();
+			} else {
+				throw new ListingException("Bitset Is Null");
+				
+			}
 		}
 		
 }

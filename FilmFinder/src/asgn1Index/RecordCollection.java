@@ -14,24 +14,34 @@ public class RecordCollection extends AbstractRecordCollection {
 	
 	@Override
 	public void addRecord(Record r) throws IndexException {
-		RecordCollection.add(r);
-		sorted = false;
+		if (r == null) {
+			throw new IndexException("Record is null");
+		} else {
+			RecordCollection.add(r);
+			sorted = false;
+		}
 	}
 
 	@Override
 	public AbstractRecord findClosestRecord() throws IndexException {
-		// TODO Auto-generated method stub
-		return RecordCollection.get(0);
+		if (!isSorted()) { 
+			throw new IndexException("List is not sorted");
+		} else {
+			return RecordCollection.get(0);
+		}
 	}
 
 	@Override
 	public List<Record> findClosestRecords(int n) throws IndexException {
-		// TODO Auto-generated method stub
-		List<Record> closestRecords = new ArrayList<Record>();
-		for (int i=0;i<n;i++) {
-			closestRecords.add(RecordCollection.get(i));
+		if (!isSorted() || n > RecordCollection.size()) { 
+			throw new IndexException("List is not sorted or Number of results queried exceeds available results");
+		} else {
+			List<Record> closestRecords = new ArrayList<Record>();
+			for (int i=0;i<n;i++) {
+				closestRecords.add(RecordCollection.get(i));
+			}
+			return closestRecords;
 		}
-		return closestRecords;
 	}
 
 	@Override
